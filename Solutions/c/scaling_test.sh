@@ -27,6 +27,7 @@ done
 
 
 echo "Now using GNUPLOT to plot scaling"
+module load gnuplot
 gnuplot << EOF
 	set term png
 	set output "${OUTFILE}.png"
