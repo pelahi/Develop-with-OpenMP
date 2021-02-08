@@ -8,5 +8,4 @@
 
 export OMP_NUM_THREADS=4
 
-aprun -n 1 -d ${OMP_NUM_THREADS} -j 1 ./pi-omp-v1.out
-
+aprun -n 1 -d ${OMP_NUM_THREADS} -j 1 ./pi-omp.out

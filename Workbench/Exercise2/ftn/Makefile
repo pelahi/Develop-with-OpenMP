@@ -1,10 +1,11 @@
 CC=cc
 F90=ftn
 PRGENV=${PE_ENV}
-CFLAGS=-g
-SOURCE=pi-serial.f90
-OBJ=pi-serial.o
-EXE=pi-serial.out
+FFLAGS=-g
+NAME=pi-omp-v1
+SOURCE=$(NAME).f90
+OBJ=$(NAME).o
+EXE=$(NAME).out
 
 ifeq ($(PRGENV),INTEL)
 	OMP_FLAG=-openmp
@@ -12,14 +13,13 @@ else ifeq ($(PRGENV),GNU)
 	OMP_FLAG=-fopenmp
 else ifeq ($(PRGENV),CRAY)
 	OMP_FLAG=-homp
-endif 
+endif
 
 
-%.o: %.f90 
-	$(F90) -c -o $@ $< $(CFLAGS) $(OMP_FLAG)
-
-pi-serial: $(OBJ)
-	$(F90) $(CFLAGS) $(OBJ) -o $(EXE) $(OMP_FLAG)
+%.o: %.f90
+	$(F90) -c -o $@ $< $(FFLAGS) $(OMP_FLAG)
+pi-omp-v1: $(OBJ)
+	$(F90) $(FFLAGS) $(OBJ) -o $(EXE) $(OMP_FLAG)
 
 clean:
 	rm -rf $(EXE) $(OBJ)

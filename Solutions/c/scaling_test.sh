@@ -19,10 +19,10 @@ if [ -e $OUTFILE ] ; then
 	rm $OUTFILE
 fi
 for (( i=1; i<=8 ; i=$(expr $i \* 2) ))
-	do 
+	do
 		export OMP_NUM_THREADS=$i
-		echo "Executing aprun -d ${OMP_NUM_THREADS} -j 1 ${EXE} -n ${STEPS}"
-		echo -e "${OMP_NUM_THREADS} $(aprun -n 1 -d ${OMP_NUM_THREADS} -j 1 ${EXE} -n ${STEPS}|grep  "Compute time" | cut -d "=" -f 2 | cut -d " " -f 2)">>${OUTFILE}.out
+		echo "Executing srun -N 1 -n 1 -c ${OMP_NUM_THREADS} ${EXE} -n ${STEPS}"
+		echo -e "${OMP_NUM_THREADS} $(srun -N 1 -n 1 -c ${OMP_NUM_THREADS} -n ${STEPS}|grep  "Compute time" | cut -d "=" -f 2 | cut -d " " -f 2)">>${OUTFILE}.out
 done
 
 
@@ -30,6 +30,6 @@ echo "Now using GNUPLOT to plot scaling"
 gnuplot << EOF
 	set term png
 	set output "${OUTFILE}.png"
-	plot "${OUTFILE}.out" using 1:2 with lines 
+	plot "${OUTFILE}.out" using 1:2 with lines
 EOF
 fi
