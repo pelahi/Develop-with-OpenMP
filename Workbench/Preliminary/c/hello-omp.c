@@ -1,25 +1,21 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-/* 
-	Exercise 1:
+/*
+	Exercise:
 	Intent : Write a helloworld program with OpenMP.
 
-	Goals: 
+	Goals:
 		1. Include OpenMP header
 		2. Within the scope of #pragma omp parallel
 			a. Each thread queries it thread ID.
 			b. Each thread then prints its thread ID.
 */
 
-
-
-
-
 void main (){
-//Initialize parallel region here 
-	{ 
-		int thread_id;
-					 
+	int thread_id = 0;
+	//Initialize parallel region here
+	{
+		printf("Hello World from %d \n", thread_id);
 	}
 }
